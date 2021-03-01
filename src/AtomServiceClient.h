@@ -13,7 +13,6 @@
 #include <opencog/atoms/base/Handle.h>
 #include <opencog/atoms/base/Node.h>
 #include <opencog/atoms/base/Link.h>
-#include <opencog/atoms/atom_types/NameServer.h>
 #include <opencog/bioscience/types/atom_types.h>
 #include <opencog/atomspace/AtomSpace.h>
 
@@ -65,7 +64,7 @@ public:
      * Note: this function doesn't add the result handle to a local atomspace
      * as the call is to check if a node exists
      */
-    Handle CheckNode(const std::string &atom_id, Type type, const std::string
+    Handle CheckNode(const std::string &atom_id, const std::string &type_name, const std::string
     &node_name);
 
     /**
@@ -76,8 +75,16 @@ public:
      * @param result -  a handle vector that will contain the similar nodes.
      * Note: Here similarity is just how similar the name of the nodes are given that they are the same time
      */
-    void FindSimilar(const std::string &atom_id, Type type, const std::string
+    void FindSimilar(const std::string &atom_id, const std::string &type_name, const std::string
     &node_name, HandleSeq& result, AtomSpace* as);
+
+    /**
+     * Return all the handles with a specific name in atomspace atom_id
+     * @param atom_id - the id of the remote atomspace
+     * @param name - he name of the node
+     * @param result - NodeMsg representing the handle
+     */
+    NodeMsg FindType(const std::string &atom_id, const std::string &name);
 
 private:
     Handle FromNodeMsg(const NodeMsg& node);
